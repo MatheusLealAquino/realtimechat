@@ -1,0 +1,19 @@
+users:
+  id,
+  name,
+  email,
+  password,
+  chats:[
+    chatId
+  ]
+
+chats:
+  id,
+  users:[
+    userId
+  ],
+  messages: [
+    userId,
+    date,
+    message
+  ]
