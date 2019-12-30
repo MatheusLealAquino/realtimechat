@@ -17,6 +17,10 @@ export class UsersService {
     return await new this.userModel(createUserDto).save();
   }
 
+  async findById(id: string): Promise<User> {
+    return await this.userModel.findById(id).select('-password');
+  }
+
   async findOne(query: object): Promise<User | undefined> {
     return await this.userModel.findOne(query);
   }

@@ -7,7 +7,11 @@ import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/realtimechat', { useNewUrlParser: true, useUnifiedTopology: true }),
+    MongooseModule.forRoot('mongodb://localhost:27017/realtimechat', { 
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }),
     UsersModule,
     AuthModule,
     ChatModule,

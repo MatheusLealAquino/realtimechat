@@ -1,4 +1,4 @@
-import { Controller, Request, Post, Get, UseGuards, Body } from '@nestjs/common';
+import { Controller, Request, Param, Post, Get, UseGuards, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../../shared/decorators/roles.decorator';
 import { RolesGuard } from '../../shared/guards/roles-guard';
@@ -21,7 +21,13 @@ export class UsersController {
   @Get()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('admin')
-  async get(@Request() req) {
+  async get() {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
+  async getOne(@Param('id') id) {
+    return this.usersService.findById(id);
   }
 }
