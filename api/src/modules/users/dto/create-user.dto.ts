@@ -1,4 +1,4 @@
-import { IsString, IsArray } from 'class-validator';
+import { IsString, IsArray, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -7,6 +7,8 @@ export class CreateUserDto {
   readonly email: string;
   @IsString()
   password: string;
+  @IsOptional()
   readonly chats?: any;
+  @IsOptional()
   readonly roles?: any;
 }

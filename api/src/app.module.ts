@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { AppController } from './app.controller';
-import { ChatModule } from './modules/chat/chat.module';
+import { ChatsModule } from './modules/chats/chats.module';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { ChatModule } from './modules/chat/chat.module';
     }),
     UsersModule,
     AuthModule,
-    ChatModule,
+    ChatsModule,
   ],
   controllers: [AppController],
 })
