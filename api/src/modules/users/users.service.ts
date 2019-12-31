@@ -17,6 +17,12 @@ export class UsersService {
     return await new this.userModel(createUserDto).save();
   }
 
+  async userHasChat(userId: string, chatId: string): Promise<Boolean>{
+    const response = await this.userModel.find({ id: userId, chats: chatId });
+    if(response && response.length > 0) return true;
+    return false;
+  }
+
   async findById(id: string): Promise<User> {
     return await this.userModel.findById(id).select('-password');
   }

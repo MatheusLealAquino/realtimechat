@@ -14,4 +14,9 @@ export class ChatService {
   async create(CreateChatDto: CreateChatDto): Promise<Chat> {
     return await new this.chatModel(CreateChatDto).save();
   }
+
+  async findById(id: string): Promise<Chat> {
+    return await this.chatModel.findById(id);
+  }
+
 }
