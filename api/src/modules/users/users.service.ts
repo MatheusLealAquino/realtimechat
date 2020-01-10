@@ -17,6 +17,13 @@ export class UsersService {
     return await new this.userModel(createUserDto).save();
   }
 
+  async updateChat(userId: string, chatId: string) {
+    return await this.userModel.update(
+      { _id: userId }, 
+      { $push: { chats: chatId } },
+    );
+  }
+
   async userHasChat(userId: string, chatId: string): Promise<Boolean>{
     const response = await this.userModel.find({ _id: userId, chats: chatId });
     if(response && response.length > 0) return true;

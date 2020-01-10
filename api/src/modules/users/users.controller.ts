@@ -1,13 +1,15 @@
-import { Controller, Request, Param, Post, Get, UseGuards, Body } from '@nestjs/common';
+import { Controller, Request, Param, Post, Get, UseGuards, Body, NotFoundException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../../shared/decorators/roles.decorator';
 import { RolesGuard } from '../../shared/guards/roles-guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ChatService } from '../chats/chats.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
+    private readonly chatsService : ChatService,
     private readonly usersService: UsersService
   ) {}
 
@@ -29,5 +31,15 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   async getOne(@Param('id') id) {
     return this.usersService.findById(id);
+  }
+
+  @Get(':id/chats')
+  @UseGuards(AuthGuard('jwt'))
+  async getChatsByUser(@Param('id') id, @Request() req) {
+    if(req.user.userId === id) {
+      return await this.chatsService.findChatsByUser(id);
+    } else {
+      return [];
+    }
   }
 }

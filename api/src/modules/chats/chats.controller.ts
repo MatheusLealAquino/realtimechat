@@ -14,7 +14,13 @@ export class ChatsController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async post(@Body() createChatDto: CreateChatDto) {
-    return await this.chatsService.create(createChatDto);
+    const chatData = await this.chatsService.create(createChatDto);
+    if(createChatDto.users) {
+      createChatDto.users.forEach(async user => {
+        await this.usersService.updateChat(user, chatData._id);
+      });
+    }
+    return chatData;
   }
 
   @Get(':id')
@@ -30,5 +36,4 @@ export class ChatsController {
       });
     }
   }
-
 }

@@ -1,5 +1,5 @@
 export interface Chat {
-  id?:string,
+  _id?:string,
   users: any,
   messages: any
 }

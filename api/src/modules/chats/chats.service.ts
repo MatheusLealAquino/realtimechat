@@ -19,4 +19,8 @@ export class ChatService {
     return await this.chatModel.findById(id);
   }
 
+  async findChatsByUser(idUser: string): Promise<Chat> {
+    return await this.chatModel.find({users: idUser});
+  }
+
 }
