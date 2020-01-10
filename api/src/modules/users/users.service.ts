@@ -18,7 +18,7 @@ export class UsersService {
   }
 
   async userHasChat(userId: string, chatId: string): Promise<Boolean>{
-    const response = await this.userModel.find({ id: userId, chats: chatId });
+    const response = await this.userModel.find({ _id: userId, chats: chatId });
     if(response && response.length > 0) return true;
     return false;
   }
