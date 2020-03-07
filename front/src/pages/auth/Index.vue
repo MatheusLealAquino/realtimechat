@@ -8,7 +8,7 @@
       >
         <q-input
           filled
-          v-model="email"
+          v-model="login.email"
           :label="`${$t('label.email')} *`"
           :rules="[ val => val && val.length > 0 || $t('rules.something')]"
         />
@@ -16,7 +16,7 @@
         <q-input
           filled
           type="password"
-          v-model="password"
+          v-model="login.password"
           :label="`${$t('label.password')} *`"
           :rules="[ val => val && val.length > 0 || $t('rules.something')]"
         />
@@ -35,31 +35,35 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      email: null,
-      password: null
+      login: {
+        email: null,
+        password: null
+      }
     }
   },
   methods: {
-    onSubmit () {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: 'red-5',
-          textColor: 'white',
-          icon: 'warning',
-          message: 'You need to accept the license and terms first'
-        })
-      } else {
+    async onSubmit () {
+      try {
+        await this.$store.dispatch('user/login', this.login)
         this.$q.notify({
           color: 'green-4',
           textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted'
+          icon: 'done',
+          message: 'Login realizado com sucesso!'
+        })
+        this.$router.push('/home')
+      } catch (err) {
+        this.$q.notify({
+          color: 'red-10',
+          textColor: 'white',
+          icon: 'error',
+          message: 'Não foi possível realizar login!'
         })
       }
     },
     onReset () {
-      this.email = null
-      this.password = null
+      this.login.email = null
+      this.login.password = null
     }
   }
 }
