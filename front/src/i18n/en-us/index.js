@@ -8,7 +8,9 @@ export default {
   },
   forgotPassword: 'Forgot your password?',
   dontHaveAccount: `Don't have a account?`,
+  haveAccount: 'Do you have a account?',
   label: {
+    name: 'Your name',
     email: 'Your email',
     password: 'Your password'
   },
