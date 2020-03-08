@@ -6,7 +6,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/auth/Index.vue') },
       { path: 'signup', component: () => import('pages/auth/Signup.vue') },
-      { path: 'forgotPassword', component: () => import('pages/auth/ForgotPassword.vue') }
+      { path: 'forgot-password', component: () => import('pages/auth/ForgotPassword.vue') }
     ]
   },
   {

@@ -7,6 +7,10 @@
 
 <script>
 export default {
-  name: 'Signup'
+  name: 'Signup',
+  meta: {
+    title: 'Sign up',
+    titleTemplate: title => `${title} - Realtime Chat`
+  }
 }
 </script>
