@@ -1,13 +1,16 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
   button: {
     submit: 'Submit',
     reset: 'Reset',
-    clear: 'Clear'
+    clear: 'Clear',
+    login: 'Login',
+    signUp: 'Sign up on Realtime Chat'
   },
+  forgotPassword: 'Forgot your password?',
+  dontHaveAccount: `Don't have a account?`,
+  haveAccount: 'Do you have a account?',
   label: {
+    name: 'Your name',
     email: 'Your email',
     password: 'Your password'
   },

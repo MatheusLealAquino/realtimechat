@@ -1,4 +1,4 @@
-import { Controller, Request, Param, Post, Get, UseGuards, Body, NotFoundException } from '@nestjs/common';
+import { Controller, Request, Param, Post, Get, UseGuards, Body, NotFoundException, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../../shared/decorators/roles.decorator';
 import { RolesGuard } from '../../shared/guards/roles-guard';
@@ -27,7 +27,15 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
+  @Get('email')
+  @UseGuards(AuthGuard('jwt'))
+  async getOneByEmail(@Query('email') email) {
+    let user = JSON.parse(JSON.stringify(await this.usersService.findOne({email: { $eq: email }})));
+    delete user.password;
+    return user;
+  }
+
+  @Get(':id/')
   @UseGuards(AuthGuard('jwt'))
   async getOne(@Param('id') id) {
     return this.usersService.findById(id);
