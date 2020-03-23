@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ChatsModule } from './modules/chats/chats.module';
+import { ChatsGateway } from './modules/chats/chats.gateway';
 
 @Module({
   imports: [
@@ -17,5 +18,6 @@ import { ChatsModule } from './modules/chats/chats.module';
     ChatsModule,
   ],
   controllers: [AppController],
+  providers: [ChatsGateway],
 })
 export class AppModule {}

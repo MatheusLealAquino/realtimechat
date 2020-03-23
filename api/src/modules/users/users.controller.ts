@@ -15,7 +15,7 @@ export class UsersController {
 
   @Post()
   async post(@Body() createUserDto: CreateUserDto) {
-    let user = JSON.parse(JSON.stringify( await this.usersService.create(createUserDto)));
+    let user = JSON.parse(JSON.stringify(await this.usersService.create(createUserDto)));
     delete user.password;
     return user;
   }

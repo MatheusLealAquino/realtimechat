@@ -11,8 +11,14 @@ export class ChatService {
     private readonly chatModel: Model<Chat>
   ) {}
 
-  async create(CreateChatDto: CreateChatDto): Promise<Chat> {
-    return await new this.chatModel(CreateChatDto).save();
+  async create(createChatDto: CreateChatDto): Promise<Chat> {
+    return await new this.chatModel(createChatDto).save();
+  }
+
+  async updateChat(id: String, data: Object): Promise<Boolean> {
+    return await this.chatModel.update({_id: id}, { 
+      $push: { messages: data }
+    }).nModified == 1;
   }
 
   async findById(id: string): Promise<Chat> {
