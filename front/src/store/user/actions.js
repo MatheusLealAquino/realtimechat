@@ -15,6 +15,7 @@ export async function login (context, data) {
 
     const responseUser = await UserService.fetch(`email/?email=${data.email}`)
     context.commit('setId', responseUser.data._id)
+    context.commit('setName', responseUser.data.name)
     return responseToken.data.access_token
   } catch (err) {
     const message = {

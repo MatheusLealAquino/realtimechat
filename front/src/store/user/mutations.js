@@ -7,3 +7,7 @@ export function setToken(state, data) {
 export function setId(state, data) {
   state.id = data ? data : null
 }
+
+export function setName(state, data) {
+  state.name = data ? data : null
+}
