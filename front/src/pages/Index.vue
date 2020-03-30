@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="col-12">
-      <q-input bottom-slots v-model="message" label="Message" counter>
+      <q-input bottom-slots v-model="message" label="Message" counter @keydown.enter="sendMessage()">
         <template v-slot:append>
           <q-icon v-if="message !== ''" name="close" @click="message = ''" class="cursor-pointer" />
         </template>
@@ -27,7 +27,7 @@
 import io from 'socket.io-client'
 
 export default {
-  name: 'PageIndex',
+  name: 'HomePage',
   data () {
     return {
       message: '',
@@ -53,7 +53,6 @@ export default {
       return this.userName.length > 0 && this.message.length > 0
     },
     sendMessage () {
-      this.getConnection()
       if (this.validateInput()) {
         const message = {
           id: '5e18af4be5988b1bdc9dd35b',
@@ -61,22 +60,30 @@ export default {
           message: this.message
         }
 
-        this.socket.emit('message', message)
+        if (this.socket) {
+          this.socket.emit('message', message)
+        }
         this.message = ''
       }
     },
     receivedMessage (message) {
-      this.messages.push({
-        sent: message.userId === this.userId,
-        message: message.message
-      })
+      if (this.messages.length <= 0 ||
+      new Date() - this.messages[this.messages.length - 1].time > 500 ||
+      this.messages[this.messages.length - 1].message !== message.message) {
+        this.messages.push({
+          sent: message.userId === this.userId,
+          message: message.message,
+          time: new Date()
+        })
+      }
     },
     getConnection () {
-      this.socket = io('http://localhost:3000', { transports: ['websocket'], upgrade: false })
-
-      this.socket.on('5e18af4be5988b1bdc9dd35b', message => {
-        this.receivedMessage(message)
-      })
+      this.socket = io('http://localhost:3000', { forceNew: true, transports: ['websocket'] })
+      if (this.socket) {
+        this.socket.on('5e18af4be5988b1bdc9dd35b', message => {
+          this.receivedMessage(message)
+        })
+      }
     }
   },
   created () {

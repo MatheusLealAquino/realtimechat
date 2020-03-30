@@ -57,7 +57,7 @@
 
 <script>
 export default {
-  name: 'PageIndex',
+  name: 'AuthPage',
   meta: {
     title: 'Login',
     titleTemplate: title => `${title} - Realtime Chat`
