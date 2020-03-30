@@ -16,9 +16,10 @@ export class ChatService {
   }
 
   async updateChat(id: String, data: Object): Promise<Boolean> {
-    return await this.chatModel.update({_id: id}, { 
+    const res = await this.chatModel.findOneAndUpdate({_id: id}, { 
       $push: { messages: data }
-    }).nModified == 1;
+    });
+    return res.nModified == 1;
   }
 
   async findById(id: string): Promise<Chat> {
